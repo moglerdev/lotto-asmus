@@ -1,0 +1,172 @@
+body {
+  font-family: "Segoe UI Semibold", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  padding: 5px;
+  text-align: center;
+}
+
+.country-selection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 40rem;
+  margin: 0 auto 0 auto;
+}
+
+.country-selection .btn-country {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 10px;
+}
+
+.country-selection .btn-country img {
+  width: 100%;
+  height: 5rem;
+}
+
+.lotto-machine {
+  width: 80rem;
+  margin: 0 auto 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 40rem;
+}
+
+.lotto-machine .pages {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-right: solid 1px #384146;
+  margin-right: 10px;
+}
+
+.lotto-machine .pages .lotto-page {
+  width: 15rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.lotto-machine .pages .lotto-page .btn-num {
+  cursor: pointer;
+  width: 3rem;
+  text-align: center;
+  font-size: 20px;
+  border: solid 1px #0f0f0f;
+}
+
+.lotto-machine .pages .lotto-page .btn-num.active {
+  background-color: #797d85;
+  color: #fff;
+  cursor: default;
+}
+
+.lotto-machine .pages .page-controller {
+  width: 15rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: solid 1px black;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.lotto-machine .pages .page-controller .btn-controller {
+  font-size: 30px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.lotto-machine .pages .page-controller .btn-controller.btn-page-create {
+  background-color: #9dc489;
+}
+
+.lotto-machine .pages .page-controller .btn-controller:disabled {
+  color: #444444;
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+.lotto-machine .pages .page-controller .btn-controller:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.lotto-machine .pages .page-controller .btn-controller:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.lotto-machine .info {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 10px;
+}
+
+.lotto-machine .info .page-info {
+  border-bottom: solid 1px;
+  margin-top: 5px;
+}
+
+.lotto-machine .info .page-info:last-child {
+  border-bottom: none;
+}
+
+.lotto-machine .info .page-info .page-nr {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.lotto-machine .info .page-info .page-nums {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.lotto-machine .info .page-info .page-nums .num {
+  width: 3rem;
+  text-align: center;
+  background-color: #b2b8db;
+  margin-left: 10px;
+}
+
+.lotto-machine .info .page-info .page-nums .num:first-child {
+  margin-left: 0;
+}
+
+.lotto-machine .info .page-nr {
+  font-size: 16px;
+}
+
+.lotto-machine .info .page-nums {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+/*# sourceMappingURL=index.css.map */
