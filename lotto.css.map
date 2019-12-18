@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,kDAAkD;AAElD,AAAA,IAAI,CAAA;EACA,WAAW,EAAE,+CAA+C;CAC/D",
+    "sources": [
+        "lotto.scss"
+    ],
+    "names": [],
+    "file": "lotto.css"
+}
