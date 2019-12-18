@@ -8,7 +8,7 @@ const FACT = function(iterator){
         throw "Ungültiger Wert für Iterator!";
     }
 
-    for(var i = 2; i <= iterator; ++i){
+    for(let i = 2; i <= iterator; ++i){
         out *= i;
     }
 
@@ -52,47 +52,24 @@ const COUNTRY = {
 }
 
 var Lotto = {
-    init: function(el){
-        this.$el = document.getElementById(el);
-        if(!this.$el){
-            throw "Lotto konnte nicht initialisiert werden!";
-        }
+
+    init: function(){
+        this.setCountry('DEU');
     },
+
     data: {
-        $el: null, 
         pages: [],
-        currentPage: -1,
         country: null
     },
+
     helper: {
-        generateCountryButtons: function(){
-            let countrySelection = document.createElement('div');
-            countrySelection.className = 'country-select';
-
-            Object.entries(COUNTRY).forEach(function([key, value]){
-                if(key !== "getCountry"){
-                    console.log(key, value);
-                    let btn = document.createElement('button');
-                    btn.className = 'select-btn'
-                    btn.title = value.title;
-                    
-                    let img = document.createElement('img');
-                    img.src = value.img;
-
-                    btn.appendChild(img);
-
-                    countrySelection.appendChild(btn);
-                }
-            });
-            console.log(this.data.$el);
-
-            this.$el.appendChild(countrySelection);
-        },
-
         generatePage: function(){        
-            var lottoPage = document.createElement('div');
-            lottoPage.dataset.pageIndex = this.data.pages.length;
-            lottoPage.dataset.className = 'lotto-page';
+            let lottoPage = document.createElement('div');
+            lottoPage.dataset.page = Lotto.data.pages.length - 1;
+            lottoPage.className = 'page';
+
+            let pageIndex = Lotto.data.pages.length;
+            Lotto.data.pages[pageIndex] = [];
 
             if(!lottoPage){
                 throw "Das DOM Element für die Lottozahlen konnte nicht gefunden werden, bitte starten Sie die Seite neu!";
@@ -100,49 +77,76 @@ var Lotto = {
 
             lottoPage.innerHTML = "";
 
-            for(var i = 0; i < this.data.country.count; ++i){
-                lottoPage.appendChild(this.createNumberButton(i + 1));
+            for(let i = 0; i < Lotto.data.country.count; ++i){
+                lottoPage.appendChild(this.createNumberButton(pageIndex, i + 1));
             }
+
+            document.getElementById('pages').appendChild(lottoPage);
         },
 
-        createNumberButton: function(num){
+        createNumberButton: function(pageIndex, num){
             let numBtn = document.createElement('button');
 
             numBtn.innerText = num;
             numBtn.className = "btn-num";
             numBtn.dataset.num = num;
             numBtn.dataset.selected = false;
+            numBtn.dataset.page = pageIndex;
 
-            numBtn.addEventListener('click', function(e) { this.events.numberBtnClicked(this, eventArgs) });
+            numBtn.addEventListener('click', function(eventArgs) { Lotto.events.numberBtnClicked(this, eventArgs) });
 
             return numBtn;
         },
 
+        getNumberCount: function(pageIndex){
+            pageIndex = Number.parseInt(pageIndex);
+            console.log(pageIndex);
+            return Lotto.data.pages[pageIndex].length;
+        }
     },
+
     events: {
         numberBtnClicked: function(sender, eventArgs){
-            var isActivated = this.dataset.selected === "false";
+            let isActivated = sender.dataset.selected === "false";
 
-            if(isActivated && lotto.getNumberCount() >= lotto.data.country.max){
-                e.preventDefault();
+            if(isActivated && Lotto.helper.getNumberCount(sender.dataset.page) >= Lotto.data.country.max){
+                eventArgs.preventDefault();
                 alert("Sie können keine weitere Zahl mehr angeben!");
                 return;
             }                
             
-            this.dataset.selected = isActivated;
-            this.classList.toggle('active', isActivated);
+            sender.dataset.selected = isActivated;
+            sender.classList.toggle('active', isActivated);
             
             if(isActivated){
-                lotto.addNumber(0, this.dataset.num);
+                Lotto.addNumber(sender.dataset.page, sender.dataset.num);
             }else{
-                lotto.removeNumber(0, this.dataset.num);
+                Lotto.removeNumber(sender.dataset.page, sender.dataset.num);
             }
         }
     },
+
     setCountry: function(country_iso_code){
-        this.data.country = COUNTRY.getCountry(country_iso_code);
-        this.data.pages = [];
-        this.data.pages[0] = [];
-        this.data.currentPage = 0;
+        Lotto.data.country = COUNTRY.getCountry(country_iso_code);
+        Lotto.data.pages = [];
+
+        for(let i = 0; i < 12; ++i){
+            Lotto.helper.generatePage();
+        }
     },
+
+    addNumber: function(pageIndex, val){
+        pageIndex = Number.parseInt(pageIndex);
+        let page = this.data.pages[pageIndex];
+        page[page.length] = val;
+    },
+
+    removeNumber: function(pageIndex, val){
+        pageIndex = Number.parseInt(pageIndex);
+        let page = this.data.page[pageIndex];
+        let index = page.indexOf(val);
+        if(index > -1){
+            page.splice(index, 1);
+        }
+    }
 }
