@@ -253,6 +253,10 @@ footer .copyrights {
   float: right;
 }
 
+.modal .modal-content .modal-footer {
+  margin-top: 20px;
+}
+
 table {
   width: 100%;
 }
@@ -265,7 +269,12 @@ table tbody {
   background-color: gray;
 }
 
-#ev_draws td {
+.modal-body.data {
+  max-height: 40rem;
+  overflow-y: auto;
+}
+
+#ev_draws td, #ev_equals td {
   text-align: center;
 }
 /*# sourceMappingURL=index.css.map */

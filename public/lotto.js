@@ -197,8 +197,17 @@ var Lotto = {
             let rowH = document.createElement('tr');
 
             let colH = document.createElement('th');
-            colH.innerText = '#';
+            colH.innerText = 'Ziehung';
             rowH.append(colH);
+
+            for(let c = 0; c < Lotto.data.country.max; ++c){
+                colH = document.createElement('th');
+
+                colH.innerText = "Zahl " + (c+1);
+                rowH.append(colH);
+            }
+
+            dr.tHead.append(rowH);
 
             let sleep = data.length < 20;
 
@@ -208,7 +217,7 @@ var Lotto = {
 
                 let row = document.createElement('tr');
                 let col = document.createElement('td');
-                col.innerText = "Feld "+(e + 1);
+                col.innerText = (e + 1);
                 row.append(col);
                 
                 for(let c = 0; c < Lotto.data.country.max; ++c){
@@ -321,6 +330,32 @@ var Lotto = {
         }
 
         this.helper.renderBoardColumn(columnIndex);
+    },
+
+    exportData: function(){
+        let content = document.getElementById('ev_equals').outerHTML + document.getElementById('ev_draws').outerHTML;
+        fetch(window.location.href + "/export.php",{
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify({
+                data: content
+            })
+        })
+        .then(resp => resp.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'export.xls';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        });
     },
 
     sendData: function(){

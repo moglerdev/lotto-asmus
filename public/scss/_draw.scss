@@ -11,7 +11,14 @@ table{
     }
 }
 
-#ev_draws{
+.modal-body{
+    &.data{
+        max-height: 40rem;
+        overflow-y: auto;
+    }
+}
+
+#ev_draws,#ev_equals{
     td{
         text-align: center;
     }

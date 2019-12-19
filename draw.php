@@ -1,7 +1,6 @@
 <?php
 /// 2019 (c) Copyrights by Asmus, Bartsch, Pauli
 
-    header('Content-type: application/json');
     $_POST = json_decode(file_get_contents('php://input'), true);
 
     $columns = $_POST["columns"];
@@ -74,5 +73,6 @@
     //$_POST['']    
 
     
+    header('Content-type: application/json');
     echo json_encode(["equals" => $rowEquals, "draws" => $draws]);
 ?>

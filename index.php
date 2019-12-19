@@ -1,9 +1,6 @@
-<?php
-    $test = [];
-    $test[20] = 2;
-?>
 <!DOCTYPE html>
 <html lang="de">
+    <!-- 2019 (c) Copyrights by Asmus, Bartsch, Pauli -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
@@ -62,15 +59,15 @@
             <div class="modal-content">
                 <div class="modal-head">
                     <h2 class="modal-brand">Auswertung</h2>
-                    <button class="btn modal-close" title="Auswertung schließen?" onclick="this.classList.toggle('active', false)"><i class="fa fa-times"></i></button>
+                    <button class="btn modal-close" title="Auswertung schließen?" onclick="document.getElementById('modal_draw').classList.toggle('active', false)"><i class="fa fa-times"></i></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body data">
                     <table id="ev_equals"></table>
                     <hr/>
                     <table id="ev_draws"></table>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-lg btn-success" >Auswertung exportieren? <i class="fas fa-file-export"></i></button>
+                    <button class="btn btn-lg btn-success" onclick="Lotto.exportData()">Auswertung exportieren? <i class="fas fa-file-export"></i></button>
                 </div>
             </div>
         </div>
@@ -87,6 +84,6 @@
 
             document.getElementById('create_new').href = window.location.href;
         </script>
-        <script src="http://www.perschke.info/webprog/validi/validiIntern.min.js"></script>
+        <!--<script src="http://www.perschke.info/webprog/validi/validiIntern.min.js"></script>-->
     </body>
 </html>
