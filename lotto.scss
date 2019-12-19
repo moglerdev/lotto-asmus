@@ -1,7 +1,7 @@
 /* 2019 (c) Copyrights by Asmus, Bartsch, Pauli */
 
 $clr_text: #fff;
-$clr_background: rgb(56, 56, 56);
+$clr_background: rgb(18, 18, 18);
 
 $clr_default: rgb(114, 114, 114);
 
@@ -24,10 +24,11 @@ button{
 }
 
 footer{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+
+    .copyrights{
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
 }
 
 

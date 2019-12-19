@@ -1,7 +1,7 @@
 /* 2019 (c) Copyrights by Asmus, Bartsch, Pauli */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #383838;
+  background-color: #121212;
   color: #fff;
 }
 
@@ -18,11 +18,9 @@ button:focus {
   outline: none;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+footer .copyrights {
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .content {

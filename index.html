@@ -2,6 +2,7 @@
 <html lang="de">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
         <title>Asmus-Abzockersimulator</title>
         <link rel="stylesheet" href="lotto.css">
     </head>
@@ -33,6 +34,9 @@
         </footer>
         <script src="lotto.js"></script>
         <script>
+            [].forEach.call(document.getElementsByClassName('date-now'), item => {
+                item.innerText = (new Date).getFullYear();
+            });
             Lotto.init();
         </script>
         <!-- <script src="http://www.perschke.info/webprog/validi/validiIntern.min.js"></script> -->

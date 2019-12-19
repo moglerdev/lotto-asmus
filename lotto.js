@@ -113,7 +113,7 @@ var Lotto = {
                 eventArgs.preventDefault();
                 alert("Sie können keine weitere Zahl mehr angeben!");
                 return;
-            }                
+            }
             
             sender.dataset.selected = isActivated;
             sender.classList.toggle('active', isActivated);
@@ -143,7 +143,7 @@ var Lotto = {
 
     removeNumber: function(pageIndex, val){
         pageIndex = Number.parseInt(pageIndex);
-        let page = this.data.page[pageIndex];
+        let page = this.data.pages[pageIndex];
         let index = page.indexOf(val);
         if(index > -1){
             page.splice(index, 1);
