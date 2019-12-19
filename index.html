@@ -1,58 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="index.css" /> 
-        <link rel="stylesheet" href="lib/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
         <title>Asmus-Abzockersimulator</title>
+        <link rel="stylesheet" href="lotto.css">
     </head>
     <body>
-        <h3>Bitte wählen Sie ihr Land</h3>
-        <div class="country-selection">
-            <button data-iso="DEU" onclick="lotto.selectCountry(this.dataset.iso)" class="btn-country" title="Deutschland"><img src="img/DEU.png"></button>
-            <button data-iso="BEL" onclick="lotto.selectCountry(this.dataset.iso)" class="btn-country" title="Belgien"><img src="img/BEL.png"></button class="btn-country">
-            <button data-iso="DNK" onclick="lotto.selectCountry(this.dataset.iso)" class="btn-country" title="Dänemark"><img src="img/DNK.png"></button class="btn-country">
-            <button data-iso="USA" onclick="lotto.selectCountry(this.dataset.iso)" class="btn-country" title="USA"><img src="img/USA.png"></button class="btn-country">
-        </div>
-        <hr>
-        <div class="lotto-machine">
-            <div class="pages">
-                <div id="lottoPage" class="lotto-page" data-is-init="false">
-                </div>
-                <div class="page-controller">
-                    <button class="btn-controller btn-page-left" disabled><i class="fas fa-chevron-left"></i></button>
-                    <button class="btn-controller btn-page-create"><i class="fas fa-plus-circle"></i></button>
-                    <button class="btn-controller btn-page-right"><i class="fas fa-chevron-right"></i></button>
-                </div>
+        <div class="content">
+            <div class="lotto-pages" id="pages">
             </div>
-            <div class="info">
-                <div class="page-info">
-                    <p class="page-nr">Seite 1</p>
-                    <div class="page-nums">
-                        <span class="num">5</span>
-                        <span class="num">2</span>
-                        <span class="num">10</span>
-                        <span class="num">6</span>
-                        <span class="num">7</span>
-                        <span class="num">8</span>
+            <div class="lotto-board">
+                <div class="board-pages">
+                    <div class="page">
+                        <p>Seite 1</p>
+                        <div class="selection">
+                            <span class="number">1</span>
+                        </div>
                     </div>
-                </div>
-                <div class="page-info">
-                    <p class="page-nr">Seite 2</p>
-                    <div class="page-nums">
-                        <span class="num">1</span>
-                        <span class="num">2</span>
-                        <span class="num">3</span>
-                        <span class="num">4</span>
+                    <div class="page">
+                        <p>Seite 2</p>
+                        <div class="selection">
+                            <span class="number">1</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <footer>
             <div class="copyrights">
-                <span class="year-now">2019</span> &copy; Copyrights by Asmus, Bartsch, Pauli
+                <span class="date-now"></span> &copy; Copyrights by Asmus, Bartsch, Pauli
             </div>
         </footer>
-        <script src="index.js"></script>
+        <script src="lotto.js"></script>
+        <script>
+            [].forEach.call(document.getElementsByClassName('date-now'), item => {
+                item.innerText = (new Date).getFullYear();
+            });
+            Lotto.init();
+        </script>
+        <!-- <script src="http://www.perschke.info/webprog/validi/validiIntern.min.js"></script> -->
     </body>
 </html>
