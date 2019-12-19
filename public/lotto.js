@@ -193,7 +193,7 @@ var Lotto = {
 
         createDrawTable: async function(data){
             let dr = document.getElementById('ev_draws');
-            dr.innerHTML = '<thead><tr><td colspan=7><h3>Ziehungen</h3></td></tr><thead><tbody><tbody>';
+            dr.innerHTML = '<thead><tr><td colspan=7><h3>Ziehungen</h3></td></tr><thead><tbody></tbody>';
             let rowH = document.createElement('tr');
 
             let colH = document.createElement('th');

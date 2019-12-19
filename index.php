@@ -29,7 +29,7 @@
                     <hr />
                     <div class="btn-group">
                         <button class="btn btn-lg btn-success" onclick="Lotto.sendData()">Absenden <i class="fas fa-paper-plane"></i></button>
-                        <a class="btn btn-lg btn-info" tabindex="0" id="create_new" target="_blank">Neu <i class="fas fa-plus-circle"></i></a>
+                        <a class="btn btn-lg btn-info" tabindex="0" id="create_new" target="_blank" href="#">Neu <i class="fas fa-plus-circle"></i></a>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="modal-content">
                 <div class="modal-head">
                     <h2 class="modal-brand">Auswertung</h2>
-                    <button class="btn modal-close" title="Auswertung schließen?" onclick="this.classList.toggle('active', false)"><i class="fa fa-times"></i></buton>
+                    <button class="btn modal-close" title="Auswertung schließen?" onclick="this.classList.toggle('active', false)"><i class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body">
                     <table id="ev_equals"></table>
@@ -87,6 +87,6 @@
 
             document.getElementById('create_new').href = window.location.href;
         </script>
-        <!-- <script src="http://www.perschke.info/webprog/validi/validiIntern.min.js"></script> -->
+        <script src="http://www.perschke.info/webprog/validi/validiIntern.min.js"></script>
     </body>
 </html>
