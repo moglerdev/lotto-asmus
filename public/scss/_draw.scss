@@ -1,0 +1,25 @@
+/// 2019 (c) Copyrights by Asmus, Bartsch, Pauli
+
+table{
+    width: 100%;
+
+    thead{
+        background-color: rgb(80, 80, 80);
+    }
+    tbody{
+        background-color: rgb(128, 128, 128);
+    }
+}
+
+.modal-body{
+    &.data{
+        max-height: 40rem;
+        overflow-y: auto;
+    }
+}
+
+#ev_draws,#ev_equals{
+    td{
+        text-align: center;
+    }
+}
