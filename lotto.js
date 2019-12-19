@@ -22,28 +22,32 @@ const COUNTRY = {
         title: 'Deutschland',
         img: 'img/DEU.png',
         count: 49,
-        max: 6
+        max: 6,
+        columns: 12
     },
     BEL: { // Belgien
         title: 'Belgien',
         img: 'img/BEL.png',
         count: 45,
-        max: 6
+        max: 6,
+        columns: 14
     },
     DNK:{  // Dänemark
         title: 'Dänemark',
         img: 'img/DNK.png',
         count: 36,
-        max: 7
+        max: 7,
+        columns: 10
     },
     USA: { // United States of Amerika (USA)
         title: 'USA',
         img: 'img/USA.png',
         count: 69,
-        max: 5
+        max: 5,
+        columns: 6
     },
     getCountry: function(iso_code){
-        let result = this[iso_code];
+        let result = this[iso_code.toUpperCase()];
         if(!result || iso_code === "getCountry"){
             throw "Dieser ISO-Code ist nicht hinterlegt!";
         }
@@ -54,54 +58,95 @@ const COUNTRY = {
 var Lotto = {
 
     init: function(){
-        this.setCountry('DEU');
+        this.setCountry('USA');
     },
 
     data: {
-        pages: [],
+        columns: [],
         country: null
     },
 
     helper: {
-        generatePage: function(){        
-            let lottoPage = document.createElement('div');
-            lottoPage.dataset.page = Lotto.data.pages.length - 1;
-            lottoPage.className = 'page';
+        generateColumn: function(){        
+            let columnIndex = Lotto.data.columns.length;
 
-            let pageIndex = Lotto.data.pages.length;
-            Lotto.data.pages[pageIndex] = [];
+            let lottocolumn = document.createElement('div');
+            lottocolumn.dataset.column = columnIndex;
+            lottocolumn.className = 'column';
+            Lotto.data.columns[columnIndex] = [];
 
-            if(!lottoPage){
+            if(!lottocolumn){
                 throw "Das DOM Element für die Lottozahlen konnte nicht gefunden werden, bitte starten Sie die Seite neu!";
             } 
 
-            lottoPage.innerHTML = "";
+            lottocolumn.innerHTML = "";
 
             for(let i = 0; i < Lotto.data.country.count; ++i){
-                lottoPage.appendChild(this.createNumberButton(pageIndex, i + 1));
+                lottocolumn.appendChild(this.createNumberButton(columnIndex, i + 1));
             }
 
-            document.getElementById('pages').appendChild(lottoPage);
+            let lottoInfo = document.createElement('div');
+            lottoInfo.className = "column";
+            lottoInfo.dataset.column = columnIndex;
+
+            let infoBrand = document.createElement('div');
+            infoBrand.className = "column-id";
+            infoBrand.innerText = "Zelle " + (columnIndex + 1);
+            
+            let infoSelection = document.createElement('div');
+            infoSelection.className = "selection";
+            
+            lottoInfo.appendChild(infoBrand);
+            lottoInfo.appendChild(infoSelection);
+
+            document.getElementById('columns').appendChild(lottocolumn);
+            document.getElementById('board_columns').appendChild(lottoInfo);
         },
 
-        createNumberButton: function(pageIndex, num){
+        renderBoardColumn: function(columnIndex){
+            let columnInfo = document.getElementById('board_columns').querySelector('.column[data-column="'+columnIndex+'"]');
+            if(!columnInfo){
+                console.log(columnIndex);
+                return; // Todo create new Board info
+            }
+    
+            console.log(columnInfo);
+            let numbs = Lotto.data.columns[columnIndex].sort(function(a, b) { return a - b; });
+            if(!numbs){
+                columnInfo.remove();
+            }
+    
+            let numbsInfo = columnInfo.querySelector('.selection');
+            numbsInfo.innerHTML = '';
+    
+            for(var i = 0; i < numbs.length; ++i)
+            {
+                console.log(i);
+                let ni = document.createElement('span');
+                ni.className = 'number';
+                ni.innerText = numbs[i];
+    
+                numbsInfo.appendChild(ni);
+            }
+        },
+
+        createNumberButton: function(columnIndex, num){
             let numBtn = document.createElement('button');
 
             numBtn.innerText = num;
             numBtn.className = "btn-num";
             numBtn.dataset.num = num;
             numBtn.dataset.selected = false;
-            numBtn.dataset.page = pageIndex;
+            numBtn.dataset.column = columnIndex;
 
             numBtn.addEventListener('click', function(eventArgs) { Lotto.events.numberBtnClicked(this, eventArgs) });
 
             return numBtn;
         },
 
-        getNumberCount: function(pageIndex){
-            pageIndex = Number.parseInt(pageIndex);
-            console.log(pageIndex);
-            return Lotto.data.pages[pageIndex].length;
+        getNumberCount: function(columnIndex){
+            columnIndex = Number.parseInt(columnIndex);
+            return Lotto.data.columns[columnIndex].length;
         }
     },
 
@@ -109,7 +154,7 @@ var Lotto = {
         numberBtnClicked: function(sender, eventArgs){
             let isActivated = sender.dataset.selected === "false";
 
-            if(isActivated && Lotto.helper.getNumberCount(sender.dataset.page) >= Lotto.data.country.max){
+            if(isActivated && Lotto.helper.getNumberCount(sender.dataset.column) >= Lotto.data.country.max){
                 eventArgs.preventDefault();
                 alert("Sie können keine weitere Zahl mehr angeben!");
                 return;
@@ -119,34 +164,44 @@ var Lotto = {
             sender.classList.toggle('active', isActivated);
             
             if(isActivated){
-                Lotto.addNumber(sender.dataset.page, sender.dataset.num);
+                Lotto.addNumber(sender.dataset.column, sender.dataset.num);
             }else{
-                Lotto.removeNumber(sender.dataset.page, sender.dataset.num);
+                Lotto.removeNumber(sender.dataset.column, sender.dataset.num);
             }
         }
     },
 
     setCountry: function(country_iso_code){
-        Lotto.data.country = COUNTRY.getCountry(country_iso_code);
-        Lotto.data.pages = [];
+        let cntry = COUNTRY.getCountry(country_iso_code);
+        Lotto.data.country = cntry;
+        Lotto.data.columns = [];
 
-        for(let i = 0; i < 12; ++i){
-            Lotto.helper.generatePage();
+        for(let i = 0; i < cntry.columns; ++i){
+            Lotto.helper.generateColumn();
         }
     },
 
-    addNumber: function(pageIndex, val){
-        pageIndex = Number.parseInt(pageIndex);
-        let page = this.data.pages[pageIndex];
-        page[page.length] = val;
+    addNumber: function(columnIndex, val){
+        columnIndex = Number.parseInt(columnIndex);
+        let column = this.data.columns[columnIndex];
+        column[column.length] = val;
+
+        this.helper.renderBoardColumn(columnIndex);
     },
 
-    removeNumber: function(pageIndex, val){
-        pageIndex = Number.parseInt(pageIndex);
-        let page = this.data.pages[pageIndex];
-        let index = page.indexOf(val);
+    removeNumber: function(columnIndex, val){
+        columnIndex = Number.parseInt(columnIndex);
+        let column = this.data.columns[columnIndex];
+        let index = column.indexOf(val);
         if(index > -1){
-            page.splice(index, 1);
+            column.splice(index, 1);
         }
+
+        this.helper.renderBoardColumn(columnIndex);
+    },
+
+    validData: function(){
+
+        return false;
     }
 }

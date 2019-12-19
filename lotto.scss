@@ -1,7 +1,20 @@
-/* 2019 (c) Copyrights by Asmus, Bartsch, Pauli */
+/* 2019 (c) Copyrights by Asmus, Bartsch, Pauli
+ */
 
-$clr_text: #fff;
-$clr_background: rgb(18, 18, 18);
+
+
+
+$clr_text: rgb(49, 49, 49);
+
+$clr_head_text: #f22301;
+$clr_head_background: #fdda06;
+
+$clr_lotto_num_text: #d76b6b;
+$clr_lotto_num_background: #fcd5d6;
+$clr_lotto_num_border: $clr_lotto_num_text;
+
+$clr_background: #fff;
+$clr_content_background: #f3dbd9;
 
 $clr_default: rgb(114, 114, 114);
 
@@ -31,16 +44,31 @@ footer{
     }
 }
 
+.lotto-brand{
+    margin: 0 20px 0 20px;
+    background-color: $clr_head_background;
+    color: $clr_head_text;
+    height: 40px;
+    .brand{
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .icon{
+        float: right;
+        height: 40px;
+    }
+}
 
 .content{
     display: flex;
     margin: 0 20px 0 20px;
     border: solid 1px $clr_default;
 
-    .lotto-pages, .lotto-board{
+
+    .lotto-columns, .lotto-board{
         border: solid 1px $clr_default;
     }
-    .lotto-pages{        
+    .lotto-columns{        
         flex-grow: 1;
     }
     .lotto-board{
@@ -48,12 +76,13 @@ footer{
     }
 }
 
-.lotto-pages{
+.lotto-columns{
     display: flex;
     width: 30rem;
+    height: 41rem;
     flex-wrap: wrap;
 
-    .page{
+    .column{
         width: 15rem;
         margin: 3px;
         padding: 2px;
@@ -61,20 +90,24 @@ footer{
         .btn-num{
             width: 1.8rem;
             margin-right: 3px;
+            background-color: $clr_lotto_num_background;
+            color: $clr_lotto_num_text;
+            border: solid 1px $clr_lotto_num_border;
 
             &.active{
-                background-color: rgb(224, 69, 69);
+                color: #231d4d;
+                background-color: #b3ace0;
             }
         }
     }
 }
 
 .lotto-board{
-    flex-grow: 2;
-    .board-pages{
+    max-width: 30rem;
+    .board-columns{
         display: flex;
         flex-direction: column;
-        .page{
+        .column{
             flex-grow: 1;
             border-bottom: solid 1px $clr_default;
 
@@ -89,8 +122,14 @@ footer{
     display: flex;
     margin: 5px;
     .number{
-        width: 2rem;
+        $sn_size: 1.25rem;
+        width: $sn_size;
+        height: $sn_size;
         text-align: center;
-        border: solid 1px $clr_default;
+        vertical-align: middle;
+        line-height: $sn_size;
+        background-color: $clr_lotto_num_background;
+        border: solid 1px $clr_lotto_num_border;
+        border-radius: 100%;
     }
 }
