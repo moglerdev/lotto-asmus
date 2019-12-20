@@ -6,15 +6,6 @@ body {
   color: #fff;
 }
 
-input {
-  width: 100%;
-  font-size: 24px;
-}
-
-label {
-  font-weight: bold;
-}
-
 .btn {
   cursor: pointer;
   color: #fff;
@@ -201,9 +192,17 @@ footer .copyrights {
   border-radius: 100%;
 }
 
+.countrys {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .countrys .btn-country {
-  height: 4rem;
   margin: 5px;
+  height: 4rem;
   width: 10rem;
 }
 
@@ -276,5 +275,19 @@ table tbody {
 
 #ev_draws td, #ev_equals td {
   text-align: center;
+}
+
+input {
+  width: 100%;
+  font-size: 24px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.form-error {
+  display: block;
+  color: #ff7a7a;
 }
 /*# sourceMappingURL=index.css.map */

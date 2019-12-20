@@ -6,15 +6,6 @@ body{
     color: $clr_text;
 }
 
-input{
-    width: 100%;
-    font-size: 24px;
-}
-
-label{
-    font-weight: bold;
-}
-
 .btn {
     cursor: pointer;
     color: $clr_text;
@@ -172,9 +163,12 @@ footer{
 }
 
 .countrys{
+    display: flex;
+    flex-wrap: wrap;
+
     .btn-country{
-        height: 4rem;
         margin: 5px;
+        height: 4rem;
         width: 10rem;
         img{
             height: 100%;

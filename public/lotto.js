@@ -19,6 +19,10 @@ function Sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
  }
 
+ function ToggleIdleMode(show){
+    document.getElementById('modal_wait').classList.toggle('active', show);
+ }
+
 // Hier werden alle Länder mit deren Lotto informationen gespeichert.
 // Key value ist der ISO-Code des Landes.
 const COUNTRY = {
@@ -68,7 +72,7 @@ const COUNTRY = {
 
 var Lotto = {
 
-    init: function(){
+    init: function() {
         let countryDiv = document.getElementById('countrys');
         
         Object.entries(COUNTRY).forEach(function([key, value]){
@@ -91,8 +95,58 @@ var Lotto = {
             countryDiv.appendChild(btn);
         });
 
+        let btn = document.createElement('button');
+        btn.className = 'btn-country';
+        btn.title = "Eigenes Lotto-Spiel generieren."
+        btn.innerText = 'Eigenes Spiel konfigurieren?';
+        
+        btn.addEventListener('click', function(eventArgs){
+            document.getElementById('modal_select_country').classList.remove('active');
+            document.getElementById('modal_create_game').classList.add('active');
+        });
+
+        document.getElementById('btn_create_game').addEventListener('click', (e) => {
+            let isValid = true;
+            document.getElementById('modal_create_game').querySelectorAll('input[data-validate]').forEach((item) => {
+                if(item.dataset.isValid !== "true"){
+                    isValid = false;
+                }
+            });
+            if(!isValid){
+                alert("Bitte überprüfen Sie ihre Eingabe!");
+                e.preventDefault();
+            }else{
+                let cntry = {};
+                document.getElementById('modal_create_game').querySelectorAll('input').forEach((item) => {
+                    cntry[item.name] = item.type === "number" ? Number.parseInt(item.value) : item.value;
+                });
+                COUNTRY.OWN = cntry;
+                Lotto.setCountry("OWN");
+                document.getElementById('modal_create_game').classList.remove('active');
+            }
+        });
+
+        countryDiv.append(btn);
+
         document.getElementById('rowCounter').addEventListener('change', function(eventArgs){
             Lotto.events.rowCountChanged(this, eventArgs);
+        });
+
+        document.querySelectorAll('input[data-validate]').forEach((item)=>{
+            item.addEventListener('change', function(e) {
+                let output = {};
+                if(!Lotto.validInput(this, output)){
+                    document.querySelectorAll('.form-error[data-for="'+this.name+'"]').forEach((item) => {
+                        item.innerText = output.msg;
+                    });
+                    this.dataset.isValid = false;
+                }else{
+                    document.querySelectorAll('.form-error[data-for="'+this.name+'"]').forEach((item) => {
+                        item.innerText = '';
+                    });
+                    this.dataset.isValid = true;
+                }
+            });
         });
     },
 
@@ -193,7 +247,7 @@ var Lotto = {
 
         createDrawTable: async function(data){
             let dr = document.getElementById('ev_draws');
-            dr.innerHTML = '<thead><tr><td colspan=7><h3>Ziehungen</h3></td></tr><thead><tbody></tbody>';
+            dr.innerHTML = '<thead><tr><td colspan='+(Lotto.data.country.max + 1)+'><h3>Ziehungen</h3></td></tr><thead><tbody></tbody>';
             let rowH = document.createElement('tr');
 
             let colH = document.createElement('th');
@@ -234,7 +288,7 @@ var Lotto = {
 
         createEqualsTable: function(data){
             let eq = document.getElementById('ev_equals');
-            eq.innerHTML = '<thead><tr><td colspan=7><h3>Anzahl der Übereinstimmungen</h3></td></tr></thead><tbody></tbody>';
+            eq.innerHTML = '<thead><tr><td colspan='+(Lotto.data.country.max + 1)+'><h3>Anzahl der Übereinstimmungen</h3></td></tr></thead><tbody></tbody>';
             let rowH = document.createElement('tr');
 
             let colH = document.createElement('th');
@@ -311,6 +365,8 @@ var Lotto = {
         for(let i = 0; i < cntry.columns; ++i){
             Lotto.helper.generateColumn();
         }
+
+        document.getElementById('game_title').innerText = cntry.title;
     },
 
     addNumber: function(columnIndex, val){
@@ -359,6 +415,7 @@ var Lotto = {
     },
 
     sendData: function(){
+        ToggleIdleMode(true);
         if(this.validData()){
             let req = new XMLHttpRequest();
             req.open('POST', 'draw.php');
@@ -377,6 +434,7 @@ var Lotto = {
                     }
                     
                 }
+                ToggleIdleMode(false);
             });
 
             req.send(JSON.stringify(this.data));
@@ -403,7 +461,15 @@ var Lotto = {
         }
 
         return true;
-    },   
+    },
+
+    validInput: function(field, output){
+        if(field.max != null && Number.parseInt(field.value) > Number.parseInt(field.max)){
+            output.msg = "Wert darf nicht größer sein als " + field.max;
+            return false;
+        }
+        return true;
+    },
 
     TEST: function(iso, counter){
         let country = COUNTRY.getCountry(iso);
