@@ -16,7 +16,6 @@
                 }
             }
         }
-
         return $result;
     }
 
@@ -36,7 +35,6 @@
             if(!isset($equals[$key])){
                 $equals[$key] = 0;
             }
-
         }
         if($count != -1){
             $equals[$count]++;
@@ -78,7 +76,6 @@
                 $eq = $rowEquals[$key];
             }
             getEquals($col, $draw, $eq );
-
             $rowEquals[$key] = $eq;
         }
     }

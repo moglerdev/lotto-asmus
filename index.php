@@ -90,12 +90,9 @@
             <div class="modal-content">
                 <div class="modal-head">
                     <h2 class="modal-brand">Auswertung</h2>
-                    <button type="button" class="btn modal-close" title="Auswertung schließen?" onclick="document.getElementById('modal_draw').classList.toggle('active', false)"><i class="fa fa-times"></i></button>
+                    <button class="btn modal-close" title="Auswertung schließen?" onclick="document.getElementById('modal_draw').classList.toggle('active', false)"><i class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body data">
-                    <table id="ev_luckyNo"></table>
-                    <table id="ev_chance"></table>
-                    <hr />
                     <table id="ev_equals"></table>
                     <hr/>
                     <table id="ev_draws"></table>
