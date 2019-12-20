@@ -101,7 +101,6 @@ var Lotto = {
         btn.innerText = 'Eigenes Spiel konfigurieren?';
         
         btn.addEventListener('click', function(eventArgs){
-            document.getElementById('modal_select_country').classList.remove('active');
             document.getElementById('modal_create_game').classList.add('active');
         });
 
@@ -123,6 +122,7 @@ var Lotto = {
                 COUNTRY.OWN = cntry;
                 Lotto.setCountry("OWN");
                 document.getElementById('modal_create_game').classList.remove('active');
+                document.getElementById('modal_select_country').classList.remove('active');
             }
         });
 
@@ -236,15 +236,29 @@ var Lotto = {
             return Lotto.data.columns[columnIndex].length;
         },
 
+        currentEvaluation: null,
         createEvaluation: async function(data){
             let modalDraw = document.getElementById('modal_draw');
             modalDraw.classList.add('active');
 
+            data.isRunning = true;
+
+            modalDraw.querySelectorAll('[data-close-modal]').forEach((item) => {
+                item.addEventListener('click', async function(e){
+                    Lotto.helper.isSleep = false;
+                    await Lotto.helper.currentEvaluation;
+                    document.getElementById('modal_draw').classList.toggle('active', false);
+                });
+            });
+            let eq = document.getElementById('ev_equals');
+            eq.style.display = 'none';
+
             await this.createDrawTable(data.draws);
             this.createEqualsTable(data.equals);
-
+            data.isRunning = false;
         },
 
+        isSleep: null,
         createDrawTable: async function(data){
             let dr = document.getElementById('ev_draws');
             dr.innerHTML = '<thead><tr><td colspan='+(Lotto.data.country.max + 1)+'><h3>Ziehungen</h3></td></tr><thead><tbody></tbody>';
@@ -263,11 +277,14 @@ var Lotto = {
 
             dr.tHead.append(rowH);
 
-            let sleep = data.length < 20;
-
+            if(this.isSleep == null || this.isSleep === false){
+                this.isSleep= data.length < 20;
+            }
+                
             for(let e = 0; e < data.length; ++e){
-                if(sleep)
+                if(this.isSleep === true){
                     await Sleep(1000);
+                }
 
                 let row = document.createElement('tr');
                 let col = document.createElement('td');
@@ -288,6 +305,7 @@ var Lotto = {
 
         createEqualsTable: function(data){
             let eq = document.getElementById('ev_equals');
+            eq.style.display = 'table';
             eq.innerHTML = '<thead><tr><td colspan='+(Lotto.data.country.max + 1)+'><h3>Anzahl der Übereinstimmungen</h3></td></tr></thead><tbody></tbody>';
             let rowH = document.createElement('tr');
 
@@ -366,7 +384,7 @@ var Lotto = {
             Lotto.helper.generateColumn();
         }
 
-        document.getElementById('game_title').innerText = cntry.title;
+        document.getElementById('game_title').innerText = "– "+cntry.title;
     },
 
     addNumber: function(columnIndex, val){
@@ -388,14 +406,18 @@ var Lotto = {
         this.helper.renderBoardColumn(columnIndex);
     },
 
-    exportData: function(){
+    exportData: async function(){
+        Lotto.helper.isSleep = false;
+        ToggleIdleMode(true);
+        await Lotto.helper.currentEvaluation;
+        console.log("ok");
         let content = document.getElementById('ev_equals').outerHTML + document.getElementById('ev_draws').outerHTML;
+        let fileName =  (Lotto.data.country.title || "export") + '.xls';
         fetch(window.location.href + "/export.php",{
             method: 'POST',
             cache: 'no-cache',
             headers: {
               'Content-Type': 'application/json'
-              // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify({
                 data: content
@@ -407,11 +429,12 @@ var Lotto = {
             const a = document.createElement('a');
             a.style.display = 'none';
             a.href = url;
-            a.download = 'export.xls';
+            a.download = fileName;
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
         });
+        ToggleIdleMode(false);
     },
 
     sendData: function(){
@@ -426,8 +449,7 @@ var Lotto = {
                     let result;
                     try {
                         result = JSON.parse(req.responseText);
-                        Lotto.helper.createEvaluation(result);
-                        console.log(result);
+                        Lotto.helper.currentEvaluation = Lotto.helper.createEvaluation(result);
                     } catch (error) {
                         console.error(error);
                         alert("Es ist ein Fehler entstanden! Versuchen Sie es nochmal!")
@@ -438,6 +460,8 @@ var Lotto = {
             });
 
             req.send(JSON.stringify(this.data));
+        }else{            
+            ToggleIdleMode(false);
         }
     },
 
