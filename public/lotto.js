@@ -278,12 +278,14 @@ var Lotto = {
             dr.tHead.append(rowH);
 
             if(this.isSleep == null || this.isSleep === false){
-                this.isSleep= data.length < 20;
+                this.isSleep= data.length < 40;
             }
+
+            let sleepMs = (3500 / data.length);
                 
             for(let e = 0; e < data.length; ++e){
                 if(this.isSleep === true){
-                    await Sleep(1000);
+                    await Sleep(sleepMs);
                 }
 
                 let row = document.createElement('tr');
