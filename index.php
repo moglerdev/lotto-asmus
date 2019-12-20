@@ -4,13 +4,13 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-        <title>Asmus-Abzockersimulator</title>
+        <title>Lotto-Worlds - by Asmus, Bartsch, Pauli</title>
         <link rel="stylesheet" href="public/index.css">
     </head>
     <body>
         
         <div class="lotto-brand">
-            <span class="brand">Asmus-Abzockersimulator</span>
+            <span class="brand">Lotto-Worlds - <span id="game_title"></span></span>
             <img alt="Lotto Worlds" class="icon" src="img/LOTTO.png">
         </div>
     
@@ -59,6 +59,9 @@
             <div class="modal-content">
                 <div class="modal-head">
                     <h2>Lotto-Spiel erstellen:</h2>
+                    <button type="button" class="btn modal-close" title="Auswertung schließen?" 
+                        onclick="document.getElementById('modal_create_game').classList.toggle('active', false);"><i class="fa fa-times"></i>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <label for="title">Titel:</label>

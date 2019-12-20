@@ -247,7 +247,7 @@ var Lotto = {
 
         createDrawTable: async function(data){
             let dr = document.getElementById('ev_draws');
-            dr.innerHTML = '<thead><tr><td colspan=7><h3>Ziehungen</h3></td></tr><thead><tbody></tbody>';
+            dr.innerHTML = '<thead><tr><td colspan='+(Lotto.data.country.max + 1)+'><h3>Ziehungen</h3></td></tr><thead><tbody></tbody>';
             let rowH = document.createElement('tr');
 
             let colH = document.createElement('th');
@@ -288,7 +288,7 @@ var Lotto = {
 
         createEqualsTable: function(data){
             let eq = document.getElementById('ev_equals');
-            eq.innerHTML = '<thead><tr><td colspan=7><h3>Anzahl der Übereinstimmungen</h3></td></tr></thead><tbody></tbody>';
+            eq.innerHTML = '<thead><tr><td colspan='+(Lotto.data.country.max + 1)+'><h3>Anzahl der Übereinstimmungen</h3></td></tr></thead><tbody></tbody>';
             let rowH = document.createElement('tr');
 
             let colH = document.createElement('th');
@@ -365,6 +365,8 @@ var Lotto = {
         for(let i = 0; i < cntry.columns; ++i){
             Lotto.helper.generateColumn();
         }
+
+        document.getElementById('game_title').innerText = cntry.title;
     },
 
     addNumber: function(columnIndex, val){
