@@ -162,6 +162,16 @@
 
             document.getElementById('create_new').href = window.location.href;
         </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154860827-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-154860827-1');
+        </script>
+
         <!--<script src="http://www.perschke.info/webprog/validi/validiIntern.min.js"></script>-->
     </body>
 </html>
