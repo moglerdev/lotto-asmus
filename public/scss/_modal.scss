@@ -1,0 +1,47 @@
+/// 2019 (c) Copyrights by Asmus, Bartsch, Pauli
+
+.modal{
+  background-color: rgba(0, 0, 0, 0.691);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+
+  &.active{
+    display: block !important;
+  }
+
+  .modal-content{
+    margin: 0;
+    padding: 1rem 0 3rem 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    max-height: 90vh;
+    background-color: $clr_background;
+    width: auto;
+    overflow-y: auto;
+
+    .modal-head, .modal-body, .modal-footer{
+      width: 50rem;
+      margin: 0 auto 0 auto;
+    }
+    .modal-head{
+      .modal-brand, h2, h1, p{
+        display: inline-block;
+      }
+    }
+    .modal-close{
+      float: right;
+    }
+
+    .modal-footer{
+      margin-top: 20px;
+    }
+  }
+}

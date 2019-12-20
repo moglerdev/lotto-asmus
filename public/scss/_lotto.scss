@@ -1,0 +1,177 @@
+/// 2019 (c) Copyrights by Asmus, Bartsch, Pauli
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: $clr_background;
+    color: $clr_text;
+}
+
+.btn {
+    cursor: pointer;
+    color: $clr_text;
+    border: solid 1px $clr_text;
+    background-color: $clr_default;
+    border-radius: 4px;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-indent: 0px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none !important;
+
+    &:focus, &:hover{
+        outline: solid 1px #007bff;
+    }
+}
+
+.btn-success{
+    background-color: #28a745;
+}
+
+.btn-info{
+    background-color: #17a2b8;
+}
+
+.btn-group{
+    border: solid 1px $clr_text;
+    display: flex;
+    border-radius: 5px;
+
+    .btn{
+        flex-grow: 1;
+        border: none;
+        border-radius: 0;
+        border-right: solid 1px $clr_text;
+        
+        &:last-child{
+            border-right: none;
+        }
+    }
+}
+
+.btn-lg{
+    font-size: 20px;
+}
+
+footer{
+
+    .copyrights{
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+}
+
+.lotto-brand{
+    margin: 0 20px 0 20px;
+    background-color: $clr_head_background;
+    color: $clr_head_text;
+    height: 40px;
+    .brand{
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .icon{
+        float: right;
+        height: 40px;
+    }
+}
+
+.content{
+    display: flex;
+    margin: 0 20px 0 20px;
+    border: solid 1px $clr_default;
+
+
+    .lotto-columns, .lotto-board{
+        border: solid 1px $clr_default;
+    }
+    .lotto-columns{        
+        flex-grow: 1;
+    }
+    .lotto-board{
+        flex-grow: 1;
+    }
+}
+
+.lotto-columns{
+    display: flex;
+    width: 30rem;
+    height: 41rem;
+    flex-wrap: wrap;
+    overflow-y: auto;
+
+    .column{
+        width: 15rem;
+        margin: 3px;
+        padding: 2px;
+
+        .btn-num{
+            width: 1.8rem;
+            margin-right: 3px;
+            background-color: $clr_lotto_num_background;
+            color: $clr_lotto_num_text;
+            border: solid 1px $clr_lotto_num_border;
+
+            &.active{
+                color: $clr_lotto_num_active_text;
+                background-color: $clr_lotto_num_active_background;
+            }
+        }
+    }
+}
+
+.lotto-board{
+    display: flex;
+    flex-direction: column;
+    max-width: 30rem;
+
+    .board-columns{
+        flex-grow: 2;
+        display: flex;
+        flex-direction: column;
+        .column{
+            flex-grow: 1;
+            border-bottom: solid 1px $clr_default;
+
+            &:last-child{
+                border-bottom: none;
+            }
+        }
+    }
+
+    .board-controller{
+        padding: 2rem;
+        border-top: solid 1px $clr_text;
+    }
+}
+
+.selection{
+    display: flex;
+    margin: 5px;
+    .number{
+        $sn_size: 1.40rem;
+        width: $sn_size;
+        height: $sn_size;
+        text-align: center;
+        vertical-align: middle;
+        line-height: $sn_size;
+        background-color: $clr_lotto_num_background;
+        border: solid 1px $clr_lotto_num_border;
+        border-radius: 100%;
+    }
+}
+
+.countrys{
+    display: flex;
+    flex-wrap: wrap;
+
+    .btn-country{
+        margin: 5px;
+        height: 4rem;
+        width: 10rem;
+        img{
+            height: 100%;
+        }
+    }
+}

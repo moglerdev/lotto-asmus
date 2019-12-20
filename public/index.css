@@ -1,0 +1,293 @@
+/* 2019 (c) Copyrights by Asmus, Bartsch, Pauli
+ */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #313131;
+  color: #fff;
+}
+
+.btn {
+  cursor: pointer;
+  color: #fff;
+  border: solid 1px #fff;
+  background-color: #727272;
+  border-radius: 4px;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none !important;
+}
+
+.btn:focus, .btn:hover {
+  outline: solid 1px #007bff;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+}
+
+.btn-group {
+  border: solid 1px #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 5px;
+}
+
+.btn-group .btn {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border: none;
+  border-radius: 0;
+  border-right: solid 1px #fff;
+}
+
+.btn-group .btn:last-child {
+  border-right: none;
+}
+
+.btn-lg {
+  font-size: 20px;
+}
+
+footer .copyrights {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.lotto-brand {
+  margin: 0 20px 0 20px;
+  background-color: #007bff;
+  color: #fff;
+  height: 40px;
+}
+
+.lotto-brand .brand {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.lotto-brand .icon {
+  float: right;
+  height: 40px;
+}
+
+.content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 20px 0 20px;
+  border: solid 1px #727272;
+}
+
+.content .lotto-columns, .content .lotto-board {
+  border: solid 1px #727272;
+}
+
+.content .lotto-columns {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.content .lotto-board {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.lotto-columns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 30rem;
+  height: 41rem;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.lotto-columns .column {
+  width: 15rem;
+  margin: 3px;
+  padding: 2px;
+}
+
+.lotto-columns .column .btn-num {
+  width: 1.8rem;
+  margin-right: 3px;
+  background-color: #d76b6b;
+  color: #fcd5d6;
+  border: solid 1px #fcd5d6;
+}
+
+.lotto-columns .column .btn-num.active {
+  color: #16272f;
+  background-color: #788993;
+}
+
+.lotto-board {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-width: 30rem;
+}
+
+.lotto-board .board-columns {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.lotto-board .board-columns .column {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border-bottom: solid 1px #727272;
+}
+
+.lotto-board .board-columns .column:last-child {
+  border-bottom: none;
+}
+
+.lotto-board .board-controller {
+  padding: 2rem;
+  border-top: solid 1px #fff;
+}
+
+.selection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 5px;
+}
+
+.selection .number {
+  width: 1.4rem;
+  height: 1.4rem;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.4rem;
+  background-color: #d76b6b;
+  border: solid 1px #fcd5d6;
+  border-radius: 100%;
+}
+
+.countrys {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.countrys .btn-country {
+  margin: 5px;
+  height: 4rem;
+  width: 10rem;
+}
+
+.countrys .btn-country img {
+  height: 100%;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.691);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+
+.modal.active {
+  display: block !important;
+}
+
+.modal .modal-content {
+  margin: 0;
+  padding: 1rem 0 3rem 0;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  max-height: 90vh;
+  background-color: #313131;
+  width: auto;
+  overflow-y: auto;
+}
+
+.modal .modal-content .modal-head, .modal .modal-content .modal-body, .modal .modal-content .modal-footer {
+  width: 50rem;
+  margin: 0 auto 0 auto;
+}
+
+.modal .modal-content .modal-head .modal-brand, .modal .modal-content .modal-head h2, .modal .modal-content .modal-head h1, .modal .modal-content .modal-head p {
+  display: inline-block;
+}
+
+.modal .modal-content .modal-close {
+  float: right;
+}
+
+.modal .modal-content .modal-footer {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+table thead {
+  background-color: #505050;
+}
+
+table tbody {
+  background-color: gray;
+}
+
+.modal-body.data {
+  max-height: 40rem;
+  overflow-y: auto;
+}
+
+#ev_draws td, #ev_equals td {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  font-size: 24px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.form-error {
+  display: block;
+  color: #ff7a7a;
+}
+/*# sourceMappingURL=index.css.map */
