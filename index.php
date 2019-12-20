@@ -1,3 +1,10 @@
+<?php
+    session_start();
+
+    if(isset($_GET["age"])){
+        $_SESSION['valid_age'] = $_GET['age'] == "true" ? true : false;
+    }
+?>
 <!DOCTYPE html>
 <html lang="de">
     <!-- 2019 (c) Copyrights by Asmus, Bartsch, Pauli -->
@@ -9,8 +16,11 @@
     </head>
     <body>
         
+<?php 
+    if(isset($_SESSION["valid_age"]) && $_SESSION["valid_age"] == true){
+?>
         <div class="lotto-brand">
-            <span class="brand">Lotto-Worlds - <span id="game_title"></span></span>
+            <span class="brand">Lotto-Worlds <span id="game_title"></span></span>
             <img alt="Lotto Worlds" class="icon" src="img/LOTTO.png">
         </div>
     
@@ -43,7 +53,7 @@
         <div class="modal active" id="modal_select_country">
             <div class="modal-content">
                 <div class="modal-head">
-                    <h2>Wählen Sie ihr Land aus:</h2>
+                    <h2>Wählen Sie ihr Spiel / Land aus:</h2>
                 </div>
                 <div class="modal-body">
                     <div class="countrys" id="countrys">
@@ -69,7 +79,7 @@
                     <span class="form-error" data-for="title"></span>
 
                     <label for="count">Zahlen:</label>
-                    <input id="count" name="count" class="form-control" type="number" placeholder="Wie viele Zahlen stehen zur auswahl?" min="1" max="1000" data-validate>
+                    <input id="count" name="count" class="form-control" type="number" placeholder="Wie viele Zahlen stehen zur Auswahl?" min="1" max="1000" data-validate>
                     <span class="form-error" data-for="count"></span>
 
                     <label for="max">Auswählen:</label>
@@ -90,7 +100,7 @@
             <div class="modal-content">
                 <div class="modal-head">
                     <h2 class="modal-brand">Auswertung</h2>
-                    <button class="btn modal-close" title="Auswertung schließen?" onclick="document.getElementById('modal_draw').classList.toggle('active', false)"><i class="fa fa-times"></i></button>
+                    <button type="button" data-close-modal class="btn modal-close" title="Auswertung schließen?"><i class="fa fa-times"></i></button>
                 </div>
                 <div class="modal-body data">
                     <table id="ev_equals"></table>
@@ -98,11 +108,40 @@
                     <table id="ev_draws"></table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-lg btn-success" onclick="Lotto.exportData()">Auswertung exportieren? <i class="fas fa-file-export"></i></button>
+                    <button id="exportData" type="button" class="btn btn-lg btn-success" onclick="Lotto.exportData()">Auswertung exportieren? <i class="fas fa-file-export"></i></button>
                 </div>
             </div>
         </div>
-
+          
+<?php 
+    }else{
+?>
+    <div class="modal active" id="modal_valid_age">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Leider dürfen Sie diese Seite nicht besuchen!</h3>
+                    <a class="btn btn-lg btn-danger" href="?age=true">Trotzdem Spielen?</a>
+                </div>
+            </div>
+        </div>
+<?php
+    }
+?>
+<?php 
+    if(!isset($_SESSION["valid_age"])){
+?>
+        <div class="modal active" id="modal_valid_age">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Sind Sie 18 Jahre oder älter?</h3>
+                    <a class="btn btn-lg" style="width: 10rem" href="?age=true">Ja</a>
+                    <a class="btn btn-lg btn-success"  style="width: 20rem" href="?age=false">Nein</a>
+                </div>
+            </div>
+        </div>
+<?php
+}
+?>
         <div class="modal" id="modal_wait">
             <div class="modal-content">
                 <div class="modal-body">
